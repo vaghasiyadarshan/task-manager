@@ -1,0 +1,47 @@
+"use client";
+
+import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useTaskStore } from "../../../store/taskStore";
+import TaskList from "../../../components/TaskList";
+import TaskModal from "../../../components/TaskModal";
+import { Button, Box, Typography } from "@mui/material";
+import { Add } from "@mui/icons-material";
+
+export default function ProjectPage() {
+  const { projectId } = useParams();
+  const { tasks, error, addTask, updateTask, deleteTask } = useTaskStore();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <div className="p-4 flex justify-between items-center border-b border-gray-200">
+          <h2 className="text-xl font-semibold text-gray-800">Project Tasks</h2>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            className="bg-blue-600 hover:bg-blue-700"
+            onClick={() => setIsModalOpen(true)}
+          >
+            Add Task
+          </Button>
+        </div>
+        {error && <Typography color="error">{error}</Typography>}
+        <TaskList
+          tasks={tasks}
+          onTaskUpdate={updateTask}
+          onTaskDelete={deleteTask}
+        />
+        <TaskModal
+          open={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onSave={(task) => {
+            addTask(projectId, task);
+            setIsModalOpen(false);
+          }}
+        />
+      </div>
+    </div>
+  );
+}
