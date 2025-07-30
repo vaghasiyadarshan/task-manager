@@ -25,7 +25,6 @@ import {
 import { useTaskStore } from "../store/taskStore";
 import {
   Add as AddIcon,
-  Refresh as RefreshIcon,
   Edit as EditIcon,
   Delete as DeleteIcon,
 } from "@mui/icons-material";
@@ -42,7 +41,7 @@ export default function Dashboard() {
     deleteProject,
     updateProject,
   } = useTaskStore();
-  const [isRefreshing, setIsRefreshing] = useState(false);
+
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -57,15 +56,6 @@ export default function Dashboard() {
   useEffect(() => {
     fetchProjects();
   }, []);
-
-  const handleRefresh = async () => {
-    setIsRefreshing(true);
-    try {
-      await fetchProjects();
-    } finally {
-      setIsRefreshing(false);
-    }
-  };
 
   const handleEditClick = (project) => {
     setSelectedProject(project);
@@ -130,6 +120,7 @@ export default function Dashboard() {
             justifyContent: "space-between",
             alignItems: "center",
             mb: 4,
+            mt: 4,
             flexWrap: "wrap",
             gap: 2,
           }}
@@ -139,16 +130,6 @@ export default function Dashboard() {
           </Typography>
 
           <Box sx={{ display: "flex", gap: 2 }}>
-            <Tooltip title="Refresh projects">
-              <IconButton
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                aria-label="refresh projects"
-              >
-                <RefreshIcon className={isRefreshing ? "animate-spin" : ""} />
-              </IconButton>
-            </Tooltip>
-
             <Button
               variant="contained"
               startIcon={<AddIcon />}
@@ -340,7 +321,6 @@ export default function Dashboard() {
           </Grid>
         )}
 
-        {/* Delete Confirmation Dialog */}
         <Dialog
           open={deleteDialogOpen}
           onClose={handleDeleteCancel}

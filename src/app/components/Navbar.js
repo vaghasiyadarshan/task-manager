@@ -15,7 +15,7 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    loadUserFromStorage()
+    loadUserFromStorage();
   }, []);
 
   return (

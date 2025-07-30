@@ -52,9 +52,11 @@ export const useAuthStore = create((set) => ({
 
   // ✅ Rehydrate state on app load
   loadUserFromStorage: () => {
+    set({ loading: true, error: null });
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
-      set({ user: JSON.parse(savedUser) });
+      set({ user: JSON.parse(savedUser), loading: true });
     }
+    set({ loading: true, error: null });
   },
 }));
