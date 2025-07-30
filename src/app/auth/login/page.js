@@ -28,7 +28,6 @@ export default function LoginPage() {
       await loginSchema.validate({ email, password }, { abortEarly: false });
       setErrors({}); // Clear errors if validation passes
 
-      console.log("try to login");
       await login(email, password);
       router.push("/dashboard");
     } catch (err) {

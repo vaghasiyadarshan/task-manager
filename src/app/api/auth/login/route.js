@@ -13,9 +13,7 @@ export async function POST(request) {
         { status: 400 }
       );
     }
-    console.log(email, password, "request");
 
-    // Firebase sign in
     const userCredential = await signInWithEmailAndPassword(
       auth,
       email,

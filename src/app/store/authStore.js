@@ -47,16 +47,14 @@ export const useAuthStore = create((set) => ({
     await axios.post("/api/auth/logout"); // optional server-side logout
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    set({ user: null });
+    set({ user: null, loading: false });
   },
 
   // ✅ Rehydrate state on app load
   loadUserFromStorage: () => {
-    set({ loading: true, error: null });
     const savedUser = localStorage.getItem("user");
     if (savedUser) {
       set({ user: JSON.parse(savedUser), loading: true });
     }
-    set({ loading: true, error: null });
   },
 }));

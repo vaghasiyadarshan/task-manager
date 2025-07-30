@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 export async function POST(request) {
   try {
     const { email, password } = await request.json();
-    console.log(email, password, "email, password");
+
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,

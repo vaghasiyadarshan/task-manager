@@ -45,19 +45,13 @@ export async function GET(request) {
 export async function POST(request) {
   try {
     const token = request.headers.get("Authorization")?.split(" ")[1];
-    console.log(token, "token");
+
     if (!token) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
 
     const { projectId, title, status, dueDate } = await request.json();
-    console.log(
-      projectId,
-      title,
-      status,
-      dueDate,
-      " projectId, title, status, dueDate"
-    );
+
     const tasksRef = collection(db, "tasks");
 
     const newTask = {

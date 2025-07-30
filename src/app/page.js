@@ -1,13 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "./store/authStore";
 import { Box, Typography, Button } from "@mui/material";
 
 export default function Home() {
   const router = useRouter();
-
 
   return (
     <Box
@@ -24,10 +21,13 @@ export default function Home() {
         Welcome to Task Manager
       </Typography>
       <Box sx={{ display: "flex", gap: 2 }}>
-        <Button variant="contained" onClick={() => router.push("/login")}>
+        <Button variant="contained" onClick={() => router.push("/auth/login")}>
           Login
         </Button>
-        <Button variant="outlined" onClick={() => router.push("/register")}>
+        <Button
+          variant="outlined"
+          onClick={() => router.push("/auth/register")}
+        >
           Register
         </Button>
       </Box>

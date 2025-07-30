@@ -22,9 +22,7 @@ export async function PUT(request, { params }) {
 
 export async function DELETE(request, { params }) {
   try {
-    console.log(request);
     const { taskId } = params;
-    console.log(taskId, "taskId");
     const taskRef = doc(db, "tasks", taskId);
     await deleteDoc(taskRef);
 

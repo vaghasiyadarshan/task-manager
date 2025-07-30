@@ -38,7 +38,6 @@ export const useTaskStore = create((set) => ({
 
   // ✅ Add task
   addTask: async (projectId, task) => {
-    console.log(task, "task,,,,,,,,,,,,,,,,,,,");
     set({ loading: true, error: null });
     try {
       const res = await axiosInstance.post(

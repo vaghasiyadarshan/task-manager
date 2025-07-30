@@ -14,7 +14,7 @@ import { db } from "../../lib/firebase";
 export async function GET(request) {
   try {
     const token = request.headers.get("Authorization")?.split(" ")[1];
-    console.log(token, "token");
+
     if (!token) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
     }
