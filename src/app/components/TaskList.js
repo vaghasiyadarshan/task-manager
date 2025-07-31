@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { useTaskStore } from "../store/taskStore";
+import { useTaskStore } from "../app/store/taskStore";
 import { Edit, Delete, Add } from "@mui/icons-material";
 import { useParams } from "next/navigation";
 import TaskModal from "./TaskModal";

@@ -1,8 +1,8 @@
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
 export default async function DashboardLayout({ children }) {
   return (
-    <div className="flex min-h-screen">
+    <div>
       <Navbar />
 
       <div className="flex-1 overflow-auto">

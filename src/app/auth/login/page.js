@@ -2,12 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useAuthStore } from "../../store/authStore";
-import { TextField, Button, Box, Typography } from "@mui/material";
+import { useAuthStore } from "../../../store/authStore";
+import { TextField, Button, Typography } from "@mui/material";
 import * as yup from "yup";
 import Link from "next/link";
 
-// Define validation schema
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup.string().required("Password is required"),
@@ -22,38 +21,37 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      // Validate form data
       await loginSchema.validate({ email, password }, { abortEarly: false });
-      setErrors({}); // Clear errors if validation passes
-
+      setErrors({});
       await login(email, password);
       router.push("/dashboard");
     } catch (err) {
       if (err.name === "ValidationError") {
-        // Handle Yup validation errors
         const validationErrors = {};
         err.inner.forEach((error) => {
           validationErrors[error.path] = error.message;
         });
         setErrors(validationErrors);
-      } else {
-        console.error("Login failed:", err);
       }
     }
   };
 
   return (
-    <Box sx={{ maxWidth: 400, mx: "auto", mt: 8, p: 3 }}>
-      <Typography variant="h4" gutterBottom>
-        Login
+    <div className="w-100">
+      <Typography variant="h4" fontWeight="bold" sx={{ mt: 3 }}>
+        Sign In
       </Typography>
+      <Typography color="textSecondary" sx={{ mb: 3 }}>
+        Enter your email and password to sign in!
+      </Typography>
+
       {error && (
         <Typography color="error" gutterBottom>
           {error}
         </Typography>
       )}
+
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth
@@ -80,14 +78,22 @@ export default function LoginPage() {
           variant="contained"
           type="submit"
           disabled={loading}
-          sx={{ mt: 2 }}
+          sx={{
+            mt: 2,
+            backgroundColor: "#4f46e5",
+            "&:hover": { backgroundColor: "#4338ca" },
+          }}
         >
-          {loading ? "Logging in..." : "Login"}
+          {loading ? "Logging in..." : "Sign in"}
         </Button>
       </form>
-      <Typography sx={{ mt: 2 }}>
-        Don't have an account? <Link href="/auth/register">Register</Link>
+
+      <Typography sx={{ mt: 2, fontSize: "0.9rem" }}>
+        Don't have an account?{" "}
+        <Link href="/auth/register" className="text-blue-500 hover:underline">
+          Sign Up
+        </Link>
       </Typography>
-    </Box>
+    </div>
   );
 }
