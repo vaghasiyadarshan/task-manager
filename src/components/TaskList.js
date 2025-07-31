@@ -94,14 +94,14 @@ export default function TaskTable() {
                   ))}
                 </tr>
               ))
-            ) : tasks.tasks.length === 0 ? (
+            ) : tasks.length === 0 ? (
               <tr>
                 <td colSpan={4} className="text-center py-8 text-gray-500">
                   No tasks found. Create your first task!
                 </td>
               </tr>
             ) : (
-              tasks.tasks.map((task) => (
+              tasks.map((task) => (
                 <tr
                   key={task.id}
                   className="hover:bg-gray-50 transition-colors border-b"

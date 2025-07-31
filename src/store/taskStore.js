@@ -5,6 +5,7 @@ export const useTaskStore = create((set) => ({
   projects: [],
   currentProject: null,
   tasks: [],
+  project: null,
   loading: false,
   error: null,
 
@@ -25,7 +26,12 @@ export const useTaskStore = create((set) => ({
     set({ loading: true, error: null });
     try {
       const res = await axiosInstance.get(`/api/tasks?projectId=${projectId}`);
-      set({ tasks: res.data, currentProject: projectId, loading: false });
+      set({
+        tasks: res.data.tasks,
+        project: res.data.project,
+        currentProject: projectId,
+        loading: false,
+      });
     } catch (err) {
       set({
         error: err.response?.data?.message || err.message,

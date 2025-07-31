@@ -6,18 +6,27 @@ import { useTaskStore } from "../../../../store/taskStore";
 import TaskList from "../../../../components/TaskList";
 import TaskModal from "../../../../components/TaskModal";
 import { Add } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export default function ProjectPage() {
+  const router = useRouter();
   const { projectId } = useParams();
-  const { tasks, error, addTask, updateTask, deleteTask } = useTaskStore();
+  const { tasks, project, error, addTask, updateTask, deleteTask } =
+    useTaskStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center border-b border-gray-200 pb-4 mb-6">
+          <button
+            onClick={() => router.back()}
+            className="text-gray-600 hover:text-gray-800"
+          >
+            ← Back
+          </button>
           <h2 className="text-xl font-semibold text-gray-800">
-            {tasks?.project?.name || "Project"} Tasks
+            {project?.name || "Project"} Tasks
           </h2>
 
           <button

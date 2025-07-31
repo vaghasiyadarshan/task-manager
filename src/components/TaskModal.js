@@ -34,10 +34,6 @@ const style = {
 const taskSchema = yup.object().shape({
   title: yup.string().required("Title is required").max(100, "Title too long"),
   status: yup.string().required("Status is required"),
-  dueDate: yup
-    .date()
-    .nullable()
-    .min(new Date(), "Due date must be in the future"),
 });
 
 export default function TaskModal({ open, onClose, task, onSave }) {
