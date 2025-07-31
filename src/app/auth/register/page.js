@@ -7,7 +7,6 @@ import { TextField, Button, Typography } from "@mui/material";
 import * as yup from "yup";
 import Link from "next/link";
 
-// Validation Schema
 const registerSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup
@@ -52,7 +51,6 @@ export default function RegisterPage() {
 
   return (
     <div className="w-100">
-      {/* Heading */}
       <Typography variant="h4" fontWeight="bold" sx={{ mt: 3 }}>
         Create an Account
       </Typography>
@@ -60,14 +58,12 @@ export default function RegisterPage() {
         Enter your email and password to register!
       </Typography>
 
-      {/* Error Message */}
       {error && (
         <Typography color="error" gutterBottom>
           {error}
         </Typography>
       )}
 
-      {/* Registration Form */}
       <form onSubmit={handleSubmit}>
         <TextField
           fullWidth

@@ -17,7 +17,6 @@ import {
   Alert,
 } from "@mui/material";
 
-// Modal style
 const style = {
   position: "absolute",
   top: "50%",
@@ -32,7 +31,6 @@ const style = {
   overflowY: "auto",
 };
 
-// Validation schema
 const taskSchema = yup.object().shape({
   title: yup.string().required("Title is required").max(100, "Title too long"),
   status: yup.string().required("Status is required"),
@@ -56,7 +54,6 @@ export default function TaskModal({ open, onClose, task, onSave }) {
     severity: "success",
   });
 
-  // Initialize form with task data
   useEffect(() => {
     if (task) {
       setFormData({
@@ -77,7 +74,7 @@ export default function TaskModal({ open, onClose, task, onSave }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear error when user types
+
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: null }));
     }
@@ -88,17 +85,14 @@ export default function TaskModal({ open, onClose, task, onSave }) {
     setIsLoading(true);
 
     try {
-      // Validate form
       await taskSchema.validate(formData, { abortEarly: false });
 
-      // Call onSave and wait for it to complete
       await onSave({
         title: formData.title,
         status: formData.status,
         dueDate: formData.dueDate || null,
       });
 
-      // Show success message
       setSnackbar({
         open: true,
         message: task?.id
@@ -107,18 +101,15 @@ export default function TaskModal({ open, onClose, task, onSave }) {
         severity: "success",
       });
 
-      // Close modal after successful save
       onClose();
     } catch (err) {
       if (err.name === "ValidationError") {
-        // Handle validation errors
         const newErrors = {};
         err.inner.forEach((error) => {
           newErrors[error.path] = error.message;
         });
         setErrors(newErrors);
       } else {
-        // Handle API errors
         setSnackbar({
           open: true,
           message: "An error occurred. Please try again.",
@@ -193,9 +184,6 @@ export default function TaskModal({ open, onClose, task, onSave }) {
               error={!!errors.dueDate}
               helperText={errors.dueDate}
               disabled={isLoading}
-              inputProps={{
-                min: new Date().toISOString().split("T")[0], // Set min date to today
-              }}
             />
 
             <Box
@@ -222,7 +210,6 @@ export default function TaskModal({ open, onClose, task, onSave }) {
         </Box>
       </Modal>
 
-      {/* Success/Error Snackbar */}
       <Snackbar
         open={snackbar.open}
         autoHideDuration={6000}

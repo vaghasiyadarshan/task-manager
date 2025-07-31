@@ -24,7 +24,6 @@ export default function Navbar() {
     <nav className="bg-gradient-to-r from-blue-500 to-blue-700 shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
           <div
             className="flex-shrink-0 flex items-center text-white text-xl font-bold cursor-pointer"
             onClick={() => router.push("/")}
@@ -34,7 +33,6 @@ export default function Navbar() {
 
           {user && (
             <div className="flex items-center space-x-6 text-white">
-              {/* ✅ Large Screen: Show Full Name */}
               <div className="hidden md:flex items-center space-x-2 bg-white/20 px-3 py-1 rounded-full">
                 <span className="text-sm font-medium capitalize">
                   {user.name || user.email.split("@")[0]}
@@ -49,7 +47,6 @@ export default function Navbar() {
                 Logout
               </button>
 
-              {/* ✅ Mobile: Show Avatar only */}
               <div className="relative md:hidden">
                 <Avatar
                   sx={{
@@ -68,7 +65,6 @@ export default function Navbar() {
                     : user.email.charAt(0).toUpperCase()}
                 </Avatar>
 
-                {/* Dropdown Menu on Avatar Click */}
                 {isProfileOpen && (
                   <div className="absolute right-0 mt-2 w-48 bg-white text-gray-700 rounded-md shadow-lg py-2 z-50">
                     <div className="px-4 py-2 text-sm border-b border-gray-200">

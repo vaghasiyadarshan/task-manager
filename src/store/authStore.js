@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 
 export const useAuthStore = create((set) => ({
-  user: null, // ✅ Load on page refresh
+  user: null,
   loading: false,
   error: null,
 
@@ -12,7 +12,6 @@ export const useAuthStore = create((set) => ({
       const res = await axios.post("/api/auth/login", { email, password });
       const data = res.data.user;
 
-      // ✅ Store user info & token in localStorage
       localStorage.setItem("user", JSON.stringify(data));
       localStorage.setItem("token", data.uid);
 
@@ -33,24 +32,24 @@ export const useAuthStore = create((set) => ({
       localStorage.setItem("token", data.uid);
 
       set({ user: data });
-      return data; // Return user data for potential redirects
+      return data;
     } catch (err) {
       const errorMessage = err.response?.data?.message || "Registration failed";
       set({ error: errorMessage });
-      throw new Error(errorMessage); // Re-throw for form handling
+      throw new Error(errorMessage);
     } finally {
       set({ loading: false });
     }
   },
   logout: async () => {
-    // ✅ Clear both state & localStorage
-    await axios.post("/api/auth/logout"); // optional server-side logout
+  
+    await axios.post("/api/auth/logout"); 
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     set({ user: null, loading: false });
   },
 
-  // ✅ Rehydrate state on app load
+
   loadUserFromStorage: () => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) {

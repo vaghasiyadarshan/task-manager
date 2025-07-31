@@ -14,7 +14,6 @@ export default function TaskTable() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Delete confirmation state
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
 
@@ -25,7 +24,6 @@ export default function TaskTable() {
     cancelled: "bg-red-100 text-red-800", // Red for Cancelled
   };
 
-  // Fetch tasks
   const loadTasks = useCallback(async () => {
     setLoading(true);
     await fetchTasks(projectId);
@@ -36,13 +34,11 @@ export default function TaskTable() {
     loadTasks();
   }, [loadTasks]);
 
-  // Open modal for edit/create
   const handleEdit = (task) => {
     setSelectedTask(task);
     setOpenModal(true);
   };
 
-  // Save task changes
   const handleSave = async (updatedData) => {
     if (selectedTask?.id) {
       await updateTask(selectedTask.id, updatedData);
@@ -52,7 +48,6 @@ export default function TaskTable() {
     await loadTasks();
   };
 
-  // Delete confirmation
   const handleDeleteClick = (taskId) => {
     setTaskToDelete(taskId);
     setDeleteDialogOpen(true);
@@ -74,7 +69,6 @@ export default function TaskTable() {
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden relative">
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="min-w-full text-sm text-left">
           <thead className="bg-gray-50 text-gray-700">
@@ -100,14 +94,14 @@ export default function TaskTable() {
                   ))}
                 </tr>
               ))
-            ) : tasks.length === 0 ? (
+            ) : tasks.tasks.length === 0 ? (
               <tr>
                 <td colSpan={4} className="text-center py-8 text-gray-500">
                   No tasks found. Create your first task!
                 </td>
               </tr>
             ) : (
-              tasks.map((task) => (
+              tasks.tasks.map((task) => (
                 <tr
                   key={task.id}
                   className="hover:bg-gray-50 transition-colors border-b"
@@ -155,7 +149,6 @@ export default function TaskTable() {
         </table>
       </div>
 
-      {/* Task Modal */}
       <TaskModal
         open={openModal}
         onClose={() => setOpenModal(false)}
@@ -163,7 +156,6 @@ export default function TaskTable() {
         onSave={handleSave}
       />
 
-      {/* Delete Confirmation Dialog */}
       {deleteDialogOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-100 z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">

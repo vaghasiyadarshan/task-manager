@@ -8,7 +8,6 @@ export const useTaskStore = create((set) => ({
   loading: false,
   error: null,
 
-  // ✅ Fetch projects
   fetchProjects: async () => {
     set({ loading: true, error: null });
     try {
@@ -22,7 +21,6 @@ export const useTaskStore = create((set) => ({
     }
   },
 
-  // ✅ Fetch tasks
   fetchTasks: async (projectId) => {
     set({ loading: true, error: null });
     try {
@@ -36,7 +34,6 @@ export const useTaskStore = create((set) => ({
     }
   },
 
-  // ✅ Add task
   addTask: async (projectId, task) => {
     set({ loading: true, error: null });
     try {
@@ -61,7 +58,6 @@ export const useTaskStore = create((set) => ({
     }
   },
 
-  // ✅ Update task
   updateTask: async (taskId, updates) => {
     set({ loading: true, error: null });
     try {
@@ -121,7 +117,7 @@ export const useTaskStore = create((set) => ({
       throw err;
     }
   },
-  // ✅ Delete task
+
   deleteTask: async (taskId) => {
     set({ loading: true, error: null });
     try {

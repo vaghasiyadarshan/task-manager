@@ -4,10 +4,9 @@ import {
   getDocs,
   addDoc,
   doc,
-  updateDoc,
-  deleteDoc,
   query,
   where,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
@@ -26,13 +25,28 @@ export async function GET(request) {
     const tasksRef = collection(db, "tasks");
     const q = query(tasksRef, where("projectId", "==", projectId));
     const snapshot = await getDocs(q);
-
     const tasks = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    return NextResponse.json(tasks);
+    const projectsRef = collection(db, "projects");
+    const projectDocRef = doc(projectsRef, projectId);
+    const projectDoc = await getDoc(projectDocRef);
+
+    if (!projectDoc.exists()) {
+      return NextResponse.json(
+        { message: "Project not found" },
+        { status: 404 }
+      );
+    }
+
+    const project = {
+      id: projectDoc.id,
+      ...projectDoc.data(),
+    };
+
+    return NextResponse.json({ tasks, project });
   } catch (err) {
     console.error("Failed to fetch tasks:", err);
     return NextResponse.json(

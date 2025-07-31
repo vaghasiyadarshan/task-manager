@@ -36,7 +36,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-8">
-      {/* Header */}
       <div className="flex flex-wrap items-center justify-between mb-6 gap-3">
         <h1 className="text-2xl font-bold text-gray-800">Your Projects</h1>
         <button
@@ -47,14 +46,12 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className="bg-red-100 text-red-700 p-3 rounded-md mb-4">
           {error}
         </div>
       )}
 
-      {/* Loading State */}
       {loading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {[...Array(3)].map((_, i) => (
@@ -93,14 +90,6 @@ export default function Dashboard() {
                   </h3>
                   <div className="flex gap-2">
                     <button
-                      onClick={() =>
-                        router.push(`/dashboard/projects/${project.id}`)
-                      }
-                      className="p-1 hover:bg-blue-100 rounded"
-                    >
-                      <EditIcon fontSize="small" />
-                    </button>
-                    <button
                       onClick={() => handleDeleteClick(project)}
                       className="p-1 hover:bg-red-100 rounded text-red-600"
                     >
@@ -114,7 +103,6 @@ export default function Dashboard() {
               </div>
               <div className="flex justify-between items-center mt-3 text-xs text-gray-500">
                 <span>{new Date(project.createdAt).toLocaleDateString()}</span>
-                <span>{project.tasks?.length || 0} tasks</span>
               </div>
               <button
                 onClick={() => router.push(`/dashboard/projects/${project.id}`)}
@@ -127,7 +115,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* Delete Confirmation Dialog */}
       {deleteDialogOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-100 z-50">
           <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">

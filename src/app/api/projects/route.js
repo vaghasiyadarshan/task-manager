@@ -1,14 +1,5 @@
 import { NextResponse } from "next/server";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  query,
-  where,
-  doc,
-  updateDoc,
-  writeBatch,
-} from "firebase/firestore";
+import { collection, getDocs, addDoc, query, where } from "firebase/firestore";
 import { db } from "../../../lib/firebase";
 
 export async function GET(request) {

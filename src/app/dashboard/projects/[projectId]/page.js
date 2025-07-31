@@ -15,9 +15,10 @@ export default function ProjectPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
-        {/* Header */}
         <div className="flex justify-between items-center border-b border-gray-200 pb-4 mb-6">
-          <h2 className="text-xl font-semibold text-gray-800">Project Tasks</h2>
+          <h2 className="text-xl font-semibold text-gray-800">
+            {tasks?.project?.name || "Project"} Tasks
+          </h2>
 
           <button
             onClick={() => setIsModalOpen(true)}
@@ -28,17 +29,14 @@ export default function ProjectPage() {
           </button>
         </div>
 
-        {/* Error message */}
         {error && <p className="text-red-600 text-sm mb-4">{error}</p>}
 
-        {/* Task list */}
         <TaskList
           tasks={tasks}
           onTaskUpdate={updateTask}
           onTaskDelete={deleteTask}
         />
 
-        {/* Task modal */}
         <TaskModal
           open={isModalOpen}
           onClose={() => setIsModalOpen(false)}
